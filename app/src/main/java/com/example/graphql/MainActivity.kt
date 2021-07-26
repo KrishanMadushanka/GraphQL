@@ -39,7 +39,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var txtFollowing: TextView
     private lateinit var pinnedList: RecyclerView
     private lateinit var topList: RecyclerView
-    private lateinit var starredList: RecyclerView
 
     private lateinit var dialog: AlertDialog
 
@@ -63,10 +62,8 @@ class MainActivity : AppCompatActivity() {
         txtFollowing = findViewById(R.id.txtFollowing)
         pinnedList = findViewById(R.id.listPinned)
         topList = findViewById(R.id.listTop)
-        starredList = findViewById(R.id.listStarred)
         pinnedList.layoutManager = LinearLayoutManager(this)
         topList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        starredList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         if (CheckNetwork.isNetworkAvailable(this)) {
             post()
         }else{
@@ -102,7 +99,6 @@ class MainActivity : AppCompatActivity() {
                     edges = model.data.repositoryOwner.topRepositories.edges
                 }
                 updateTopList(edges)
-                updateStarredList(edges)
                 dialog.dismiss()
             } catch (e: java.lang.Exception) {
                 dialog.dismiss()
@@ -134,11 +130,5 @@ class MainActivity : AppCompatActivity() {
         var topReposAdapter = TopReposAdapter(edges, this)
         topList.adapter = topReposAdapter
         topReposAdapter.notifyDataSetChanged()
-    }
-
-    private fun updateStarredList(edges: List<Edge>) {
-        var starredReposAdapter = StarredReposAdapter(edges, this)
-        starredList.adapter = starredReposAdapter
-        starredReposAdapter.notifyDataSetChanged()
     }
 }
