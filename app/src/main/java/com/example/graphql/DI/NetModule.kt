@@ -16,13 +16,6 @@ class NetModule
 
     @Provides
     @Singleton
-    fun provideOkHttpCache(application: Application): Cache {
-        val cacheSize = 10 * 1024 * 1024L
-        return Cache(application.getCacheDir(), cacheSize)
-    }
-
-    @Provides
-    @Singleton
     fun provideGson(): Gson {
         return Gson()
     }
